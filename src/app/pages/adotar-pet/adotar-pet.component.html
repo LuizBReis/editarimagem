@@ -1,0 +1,24 @@
+<button class="voltar-para-inicio" (click)="router.navigate(['/inicio'])">Voltar ao Início</button>
+<div class="adotar-pet-container">
+  <div *ngIf="petsParaAdocao.length > 0; else emptyList" class="pet-list">
+    <div *ngFor="let pet of petsParaAdocao" class="pet-card">
+      <div class="pet-info">
+        <div class="pet-info">
+          <button *ngIf="pet.imagens && pet.imagens.length > 0 && pet.imagemAtual! > 0" (click)="anteriorImagem(pet)">◀</button>
+          <img *ngIf="pet.imagens && pet.imagens.length > 0 && pet.imagemAtual !== undefined" [src]="'http://localhost:3000/' + pet.imagens[pet.imagemAtual!]" alt="Imagem do Pet" />
+          <button *ngIf="pet.imagens && pet.imagens.length > 0 && pet.imagemAtual! < pet.imagens.length - 1" (click)="proximaImagem(pet)">▶</button>
+        </div>        
+        <h3>{{ pet.nome }}</h3>
+        <p><strong>Idade:</strong> {{ pet.idade }} anos</p>
+        <p><strong>Tipo:</strong> {{ pet.tipo }}</p>
+        <p><strong>Raça:</strong> {{ pet.raca }}</p>
+        <p><strong>Porte:</strong> {{ pet.porte }}</p>
+        <p><strong>Castrado:</strong> {{ pet.castrado ? 'Sim' : 'Não' }}</p>
+      </div>
+      <button class="adotar-btn" (click)="abrirWhatsapp(pet)">Tenho Interesse!</button>
+    </div>
+  </div>
+  <ng-template #emptyList>
+    <p>Não há pets disponíveis para adoção no momento.</p>
+  </ng-template>
+</div>
